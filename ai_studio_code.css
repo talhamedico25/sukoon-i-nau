@@ -1,0 +1,453 @@
+:root {
+    --primary: #00BFA5; /* Soft Teal */
+    --primary-dark: #008E7B;
+    --accent: #263238; /* Dark Grey/Blue */
+    --bg: #F4F9F9;
+    --surface: #FFFFFF;
+    --text-main: #37474F;
+    --text-light: #78909C;
+    --danger: #FF5252;
+    --shadow: 0 10px 30px rgba(0, 191, 165, 0.15);
+    --font-en: 'Rajdhani', sans-serif;
+    --font-ur: 'Noto Nastaliq Urdu', serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-en);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* --- Utility Classes --- */
+.urdu-text {
+    font-family: var(--font-ur);
+    direction: rtl;
+    line-height: 2.2;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-family: var(--font-en);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Header --- */
+header {
+    text-align: center;
+    padding: 40px 0;
+    position: relative;
+}
+
+.brand-logo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    margin-bottom: 15px;
+    color: white;
+}
+
+.brand-logo svg {
+    width: 35px;
+    height: 35px;
+    fill: white;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+.light-text {
+    font-weight: 200;
+    color: var(--primary);
+}
+
+.tagline {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* --- Screening Tool Section --- */
+.card {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background: #E0E0E0;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* Question Styles */
+.question-box {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.question-text {
+    font-size: 1.8rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.sub-text {
+    font-size: 1rem;
+    color: var(--text-light);
+    font-family: var(--font-en);
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Options Grid */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.option-btn {
+    background: white;
+    border: 2px solid #ECEFF1;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    color: var(--text-main);
+    text-align: right;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.option-btn:hover {
+    border-color: var(--primary);
+    background: #E0F2F1;
+}
+
+.option-btn:active {
+    transform: scale(0.98);
+}
+
+/* Result View */
+#result-view {
+    text-align: center;
+}
+
+.result-title {
+    margin-bottom: 20px;
+    color: var(--accent);
+}
+
+.score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.result-msg {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.retake-btn {
+    background: var(--accent);
+    color: white;
+    padding: 10px 30px;
+    margin-top: 30px;
+}
+
+.retake-btn:hover {
+    opacity: 0.9;
+}
+
+/* Crisis Mode Styles */
+.crisis-mode .score-circle {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.crisis-alert-text {
+    color: var(--danger);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.crisis-btn {
+    background-color: var(--danger);
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
+}
+
+.disclaimer-small {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    color: var(--text-light);
+}
+
+/* --- Founders Section --- */
+.founders-section {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+}
+
+.founders-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+/* Vertical Divider logic */
+.founders-grid::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+    transform: translateX(-50%);
+}
+
+.founder-card {
+    width: 50%;
+    padding: 0 40px;
+    text-align: center;
+}
+
+.profile-frame {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 auto 20px;
+    border: 3px solid var(--primary);
+    padding: 5px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #ECEFF1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img svg {
+    fill: #B0BEC5;
+    width: 50%;
+}
+
+.founder-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 5px;
+}
+
+.founder-bio {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.social-icon:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+}
+
+.social-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--text-main);
+}
+
+.social-icon:hover svg {
+    fill: white;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid #ECEFF1;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.footer-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    margin: 0 10px;
+    font-family: var(--font-en);
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+/* --- Modals --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(38, 50, 56, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    text-align: left;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+#modal-title {
+    margin-bottom: 15px; 
+    color: var(--accent);
+}
+
+#modal-body {
+    font-size: 0.9rem; 
+    color: var(--text-main);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .founders-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .founders-grid::after {
+        width: 80%;
+        height: 1px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(to right, transparent, var(--primary), transparent);
+    }
+    .founder-card {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    .founder-card:last-child {
+        margin-top: 40px;
+        margin-bottom: 0;
+    }
+    h1 { font-size: 1.8rem; }
+    .question-text { font-size: 1.4rem; }
+}

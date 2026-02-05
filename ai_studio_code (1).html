@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sukoon-i-Nau | Futuristic Mental Health</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #00BFA5; /* Soft Teal */
+            --primary-dark: #008E7B;
+            --accent: #263238; /* Dark Grey/Blue */
+            --bg: #F4F9F9;
+            --surface: #FFFFFF;
+            --text-main: #37474F;
+            --text-light: #78909C;
+            --danger: #FF5252;
+            --shadow: 0 10px 30px rgba(0, 191, 165, 0.15);
+            --font-en: 'Rajdhani', sans-serif;
+            --font-ur: 'Noto Nastaliq Urdu', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            outline: none;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Utility Classes --- */
+        .urdu-text {
+            font-family: var(--font-ur);
+            direction: rtl;
+            line-height: 2.2; /* Extra height for Nastaliq */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .btn {
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-family: var(--font-en);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .brand-logo svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        /* --- Screening Tool Section --- */
+        .card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: #E0E0E0;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Question Styles */
+        .question-box {
+            text-align: right;
+            margin-bottom: 30px;
+        }
+
+        .question-text {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .sub-text {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-family: var(--font-en);
+            text-align: right;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #ECEFF1;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            text-align: right;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: #E0F2F1;
+        }
+
+        .option-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Result View */
+        #result-view {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .result-msg {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Crisis Mode Styles */
+        .crisis-mode .score-circle {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        
+        .crisis-btn {
+            background-color: var(--danger);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
+        }
+
+        /* --- Founders Section --- */
+        .founders-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .founders-grid {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        /* Vertical Divider */
+        .founders-grid::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+            transform: translateX(-50%);
+        }
+
+        .founder-card {
+            width: 50%;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .profile-frame {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #fff;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary);
+            padding: 5px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #ECEFF1; /* Placeholder grey */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-img svg {
+            fill: #B0BEC5;
+            width: 50%;
+        }
+
+        .founder-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .founder-bio {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .social-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--text-main);
+        }
+        
+        .social-icon:hover svg {
+            fill: white;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #ECEFF1;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .footer-links button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            margin: 0 10px;
+            font-family: var(--font-en);
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+
+        /* --- Modals --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(38, 50, 56, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: left;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .founders-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .founders-grid::after {
+                width: 80%;
+                height: 1px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .founder-card {
+                width: 100%;
+                margin-bottom: 40px;
+            }
+            .founder-card:last-child {
+                margin-top: 40px;
+                margin-bottom: 0;
+            }
+            h1 { font-size: 1.8rem; }
+            .question-text { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="brand-logo">
+                <!-- Abstract Brain Icon SVG -->
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z" />
+                </svg>
+            </div>
+            <h1>Sukoon<span style="font-weight:200;">-i-Nau</span></h1>
+            <p style="letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); font-size: 0.8rem;">Future of Mental Health</p>
+        </header>
+
+        <!-- MAIN APP INTERFACE -->
+        <main>
+            <section class="card" id="app-card">
+                
+                <!-- State: Quiz -->
+                <div id="quiz-view">
+                    <div class="progress-container">
+                        <div class="progress-fill" id="progress-bar"></div>
+                    </div>
+
+                    <div class="question-box">
+                        <div class="sub-text">Question <span id="q-number">1</span> of 9</div>
+                        <div class="urdu-text question-text" id="q-text">
+                            کیا آپ نے پچھلے دو ہفتوں میں کام کاج میں دلچسپی یا خوشی کی کمی محسوس کی ہے؟
+                        </div>
+                    </div>
+
+                    <div class="options-grid">
+                        <button class="btn option-btn urdu-text" onclick="handleAnswer(0)">بالکل نہیں</button>
+                        <button class="btn option-btn urdu-text" onclick="handleAnswer(1)">کچھ دن</button>
+                        <button class="btn option-btn urdu-text" onclick="handleAnswer(2)">زیادہ تر دن</button>
+                        <button class="btn option-btn urdu-text" onclick="handleAnswer(3)">تقریباً روزانہ</button>
+                    </div>
+                </div>
+
+                <!-- State: Results -->
+                <div id="result-view">
+                    <h2 style="margin-bottom: 20px;">ASSESSMENT RESULT</h2>
+                    <div class="score-circle" id="score-display">0</div>
+                    
+                    <p class="urdu-text result-msg" id="result-message">
+                        آپ کا اسکور نارمل ہے۔
+                    </p>
+
+                    <div id="crisis-actions" style="display: none;">
+                        <p style="color: var(--danger); font-weight: bold; margin-bottom: 10px;">High Severity Detected</p>
+                        <a href="tel:1122" class="btn crisis-btn urdu-text">فوری مدد (Helpline)</a>
+                        <p style="font-size: 0.8rem; margin-top: 10px; color: var(--text-light);">Please seek professional help immediately.</p>
+                    </div>
+
+                    <button class="btn" style="background:var(--accent); color:white; padding:10px 30px; margin-top:30px;" onclick="resetQuiz()">Retake Assessment</button>
+                </div>
+
+            </section>
+
+            <!-- FOUNDERS SECTION -->
+            <section class="founders-section">
+                <h2 class="section-title">The Visionaries</h2>
+                
+                <div class="founders-grid">
+                    <!-- Founder 1 -->
+                    <div class="founder-card">
+                        <div class="profile-frame">
+                            <div class="profile-img">
+                                <!-- SVG Avatar User -->
+                                <svg viewBox="0 0 24 24"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" /></svg>
+                            </div>
+                        </div>
+                        <div class="founder-name">Dr. Sara Ahmed</div>
+                        <p class="founder-bio">Clinical Psychologist & UX Lead. Bridging the gap between cognitive therapy and digital design.</p>
+                        
+                        <div class="social-links">
+                            <div class="social-icon">
+                                <!-- Email Icon -->
+                                <svg viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" /></svg>
+                            </div>
+                            <div class="social-icon">
+                                <!-- LinkedIn Icon -->
+                                <svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" /></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Founder 2 -->
+                    <div class="founder-card">
+                        <div class="profile-frame">
+                            <div class="profile-img">
+                                <!-- SVG Avatar User -->
+                                <svg viewBox="0 0 24 24"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" /></svg>
+                            </div>
+                        </div>
+                        <div class="founder-name">Ali Raza</div>
+                        <p class="founder-bio">Full Stack Developer. Passionate about building accessible healthcare technology for the future.</p>
+                        
+                        <div class="social-links">
+                             <div class="social-icon">
+                                <!-- Instagram Icon -->
+                                <svg viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg>
+                            </div>
+                             <div class="social-icon">
+                                <!-- LinkedIn Icon -->
+                                <svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" /></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>&copy; 2024 Sukoon-i-Nau Health Labs.</p>
+            <div class="footer-links">
+                <button onclick="openModal('terms')">Terms</button>
+                <button onclick="openModal('privacy')">Privacy Policy</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title" style="margin-bottom: 15px; color: var(--accent);"></h2>
+            <div id="modal-body" style="font-size: 0.9rem; color: var(--text-main);"></div>
+        </div>
+    </div>
+
+    <!-- LOGIC -->
+    <script>
+        // PHQ-9 Data in Urdu
+        const questions = [
+            "کیا آپ نے پچھلے دو ہفتوں میں کام کاج میں دلچسپی یا خوشی کی کمی محسوس کی ہے؟",
+            "کیا آپ اداسی، مایوسی یا بے چارگی کا شکار رہے ہیں؟",
+            "کیا آپ کو نیند آنے میں دشواری، نیند ٹوٹنے یا بہت زیادہ نیند آنے کا مسئلہ رہا ہے؟",
+            "کیا آپ تھکاوٹ یا توانائی کی کمی محسوس کرتے ہیں؟",
+            "کیا آپ کو بھوک کی کمی یا بہت زیادہ کھانے کی شکایت رہی ہے؟",
+            "کیا آپ اپنی ذات کے بارے میں برا محسوس کرتے ہیں کہ آپ ناکام ہیں یا آپ نے خود کو یا گھر والوں کو مایوس کیا ہے؟",
+            "کیا آپ کو چیزوں پر توجہ مرکوز کرنے میں دشواری ہوتی ہے، جیسے اخبار پڑھنا یا ٹی وی دیکھنا؟",
+            "کیا آپ کے چلنے پھرنے یا بولنے کا انداز اتنا سست ہے کہ دوسرے لوگوں نے محسوس کیا ہو؟",
+            "کیا آپ کے ذہن میں یہ خیال آیا کہ آپ کے لیے مر جانا بہتر ہے یا آپ خود کو نقصان پہنچائیں؟"
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+
+        // UI References
+        const quizView = document.getElementById('quiz-view');
+        const resultView = document.getElementById('result-view');
+        const qText = document.getElementById('q-text');
+        const qNumber = document.getElementById('q-number');
+        const progressBar = document.getElementById('progress-bar');
+        
+        // Initial Render
+        updateUI();
+
+        function updateUI() {
+            qText.innerText = questions[currentQ];
+            qNumber.innerText = currentQ + 1;
+            const progress = ((currentQ) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function handleAnswer(value) {
+            score += value;
+            currentQ++;
+
+            if (currentQ < questions.length) {
+                updateUI();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizView.style.display = 'none';
+            resultView.style.display = 'block';
+            progressBar.style.width = '100%';
+
+            const scoreDisplay = document.getElementById('score-display');
+            const resultMessage = document.getElementById('result-message');
+            const crisisActions = document.getElementById('crisis-actions');
+            const resultContainer = document.getElementById('result-view');
+
+            scoreDisplay.innerText = score;
+
+            // Severity Logic
+            if (score <= 4) {
+                resultMessage.innerText = "آپ کا اسکور نارمل ہے۔ (Minimal Depression)";
+            } else if (score <= 9) {
+                resultMessage.innerText = "ہلکی علامات۔ (Mild Depression)";
+            } else if (score <= 14) {
+                resultMessage.innerText = "درمیانے درجے کی علامات۔ (Moderate Depression)";
+            } else {
+                // High Urgency
+                resultMessage.innerText = "شدید علامات۔ براہ کرم ڈاکٹر سے رجوع کریں۔ (Severe Depression)";
+                crisisActions.style.display = 'block';
+                resultContainer.classList.add('crisis-mode');
+            }
+        }
+
+        function resetQuiz() {
+            currentQ = 0;
+            score = 0;
+            quizView.style.display = 'block';
+            resultView.style.display = 'none';
+            document.getElementById('crisis-actions').style.display = 'none';
+            document.getElementById('result-view').classList.remove('crisis-mode');
+            updateUI();
+        }
+
+        // Modal Logic
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        function openModal(type) {
+            modalOverlay.style.display = 'flex';
+            if (type === 'terms') {
+                modalTitle.innerText = "Terms of Service";
+                modalBody.innerText = "This tool is for educational purposes only and does not constitute a medical diagnosis. By using this tool, you agree that the creators are not liable for health outcomes.";
+            } else {
+                modalTitle.innerText = "Privacy Policy";
+                modalBody.innerText = "We value your privacy. This tool runs entirely in your browser. No personal data or quiz answers are sent to any server.";
+            }
+        }
+
+        function closeModal() {
+            modalOverlay.style.display = 'none';
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            if (event.target == modalOverlay) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
